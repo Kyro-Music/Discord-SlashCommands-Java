@@ -21,6 +21,11 @@
       <version>1.0</version>
 </dependency>
 ```
+
+# Requirements
+
+- latest Discord.JDA version
+
 # Demo (Guild Commands)
 
 ```java
