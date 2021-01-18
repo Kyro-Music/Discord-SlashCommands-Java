@@ -41,9 +41,7 @@ dependencies {
 
 # ToDo
 
-- Global slash commands
-- throw an error if the discord api throws an error
-- you can update a command with guild.registerGuildCommand but maybe I'll add another function just for editing
+- if you have an idea create an issue [here](https://github.com/jan-tennert/Java-SlashCommands/issues/new/choose)
 
 # Demo (Guild Commands)
 
@@ -86,7 +84,7 @@ builder.build(); //Build the builder so the listeners are ready
 ```
 
 
-You can also add arguments to your command:
+#### You can also add arguments to your command:
 
 ```java
  guild.registerGuildCommand(new SlashCommand("test", "This is a test command!",
@@ -97,3 +95,16 @@ channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue()
 ```
 
 ![Command with arguments](https://cdn.discordapp.com/attachments/775406836877885504/800706541971046400/unknown.png)
+
+#### Global commands
+
+Global commands are the same but you get the object with
+```java
+SlashCommandBuilder builder = new SlashCommandBuilder(jda, botID, token)
+builder.getGlobalCommands()
+```
+And they work the same as guild commands but without out the guild in the functions:
+
+```java
+builder.getGlobalCommands().registerCommand()
+```
