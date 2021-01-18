@@ -1,3 +1,5 @@
+package de.Jan.SlashCommands
+
 /**
  * @param name The name of the argument
  * @param value The value which comes from the user

@@ -1,3 +1,5 @@
+package de.Jan.SlashCommands;
+
 public class SlashCommandOptionType {
     public static int SUB_COMMAND = 1;
     public static int SUB_COMMAND_GROUP = 2;

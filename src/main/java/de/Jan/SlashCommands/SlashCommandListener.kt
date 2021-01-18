@@ -1,3 +1,5 @@
+package de.Jan.SlashCommands
+
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel
 

@@ -1,13 +1,15 @@
+package de.Jan.SlashCommands
+
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private val token: String) {
+class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot: String, private val token: String) {
 
     private val okhttp = OkHttpClient()
-    private val url = "https://discord.com/api/v8/applications/$bot/commands"
+    private val url = "https://discord.com/api/v8/applications/$bot/guilds/$guild_id/commands"
     private val JSON = "application/json; charset=utf-8".toMediaType()
 
     val commands: ArrayList<SlashCommand>
@@ -19,9 +21,8 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
                     .get()
                     .build()
             val result = okhttp.newCall(builder).execute()
-            this.builder.checkIfError(result.body!!.string())
-            result.close()
             val array = JSONArray(result.body?.string())
+            this.builder.checkIfError(result.body!!.string())
             result.close()
             for (any in array) {
                 val json = any as JSONObject
@@ -33,23 +34,24 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         }
 
 
-    fun registerCommand(command: SlashCommand) {
+    fun registerGuildCommand(command: SlashCommand) {
         val request = Request.Builder()
                 .addHeader("Authorization", "Bot $token")
                 .url(url)
                 .post(builder.slashCommandToForm(command))
+
         val result = okhttp.newCall(request.build()).execute()
         builder.checkIfError(result.body!!.string())
         result.close()
     }
 
-    fun registerCommands(vararg commands: SlashCommand) {
+    fun registerGuildCommands(vararg commands: SlashCommand) {
         for (command in commands) {
-            registerCommand(command)
+            registerGuildCommand(command)
         }
     }
 
-    fun deleteCommand(id: String) {
+    fun deleteGuildCommand(id: String) {
         val request = Request.Builder()
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
@@ -59,13 +61,13 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         result.close()
     }
 
-    fun deleteAllCommands() {
+    fun deleteAllGuildCommands() {
         for (command in commands) {
-            deleteCommand(command.id)
+            deleteGuildCommand(command.id)
         }
     }
 
-    fun editCommand(id: String, newGuildCommand: SlashCommand) {
+    fun editGuildCommand(id: String, newGuildCommand: SlashCommand) {
         val request = Request.Builder()
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
@@ -75,13 +77,13 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         result.close()
     }
 
-
-    fun getCommand(id: String): SlashCommand? {
+    fun getGuildCommand(id: String) : SlashCommand? {
         for (command in commands) {
-            if (command.id == id) {
+            if(command.id == id) {
                 return command
             }
         }
         return null
     }
+
 }

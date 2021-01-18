@@ -1,3 +1,5 @@
+package de.Jan.SlashCommands
+
 /**
  * @param name The name of the argument
  * @param description A short description
