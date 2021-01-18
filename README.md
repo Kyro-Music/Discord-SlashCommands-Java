@@ -2,7 +2,7 @@
 
 # ! You need to enable Raw Events on you JDABuilder or the listeners won't work !
 
-# Documentation
+# Demo
 
 ```java
 JDA jda = JDABuilder.createDefault("//Token")
@@ -16,10 +16,9 @@ guild.registerGuildCommand(new SlashCommand("test", "This is a test command!"));
 
 
 
-![The Command](https://cdn.discordapp.com/attachments/775406836877885504/800702840720982037/unknown.png
-)
+![The Command](https://cdn.discordapp.com/attachments/775406836877885504/800702840720982037/unknown.png)
 
-Now we can create a listener for the slash commands:
+#### Now we can create a listener for the slash commands:
 
 ```java
 public static class Listener extends SlashCommandListener {
@@ -34,9 +33,22 @@ public static class Listener extends SlashCommandListener {
 
 
 
-Now we need to add the listener and build the builder:
+#### Now we need to add the listener and build the builder:
 
 ```java
 builder.addListener(new Listener()); //Add the listener
 builder.build(); //Build the builder so the listeners are ready
 ```
+
+
+You can also add arguments to your command:
+
+```java
+ guild.registerGuildCommand(new SlashCommand("test", "This is a test command!",
+                new SlashCommandOption("number", "Enter a number", true, SlashCommandOptionType.INTEGER))); //Register a slash command.
+
+//Then in your listener:
+channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue();
+```
+
+![Command with arguments](https://cdn.discordapp.com/attachments/775406836877885504/800706541971046400/unknown.png)
