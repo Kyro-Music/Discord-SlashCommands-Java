@@ -109,4 +109,4 @@ And they work the same as guild commands but without the guild in the functions:
 builder.getGlobalCommands().registerCommand()
 ```
 
-*Note: Global commands need up to 60min for updating
+*Note: Global commands need up to 60min for updating*
