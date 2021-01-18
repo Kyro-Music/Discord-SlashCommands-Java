@@ -19,7 +19,9 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
                     .addHeader("Authorization", "Bot $token")
                     .get()
                     .build()
-            val array = JSONArray(okhttp.newCall(builder).execute().body?.string())
+            val result = okhttp.newCall(builder).execute()
+            val array = JSONArray(result.body?.string())
+            result.close()
             for (any in array) {
                 val json = any as JSONObject
                 val command = SlashCommand(json.getString("name"), json.getString("description"))
@@ -59,7 +61,7 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
         }
         commandObject.put("options", commandOptions)
         request.post(RequestBody.Companion.create(JSON, commandObject.toString()))
-        okhttp.newCall(request.build()).execute()
+        okhttp.newCall(request.build()).execute().close()
     }
 
     fun registerGuildCommands(vararg commands: SlashCommand) {
@@ -73,7 +75,7 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
                 .delete()
-        okhttp.newCall(request.build()).execute()
+        okhttp.newCall(request.build()).execute().close()
     }
 
     fun deleteAllGuildCommands() {
