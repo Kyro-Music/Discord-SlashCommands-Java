@@ -8,17 +8,17 @@
 
 ```xml
 <repositories>
-	<repository>
-		   <id>jitpack.io</id>
-		   <url>https://jitpack.io</url>
-	</repository>
+     <repository>
+	   <id>jitpack.io</id>
+	   <url>https://jitpack.io</url>
+     </repository>
 </repositories
 ```
 ```xml
 <dependency>
-	  <groupId>com.github.jan-tennert</groupId>
-	  <artifactId>Java-SlashCommands</artifactId>
-	  <version>1.0</version>
+      <groupId>com.github.jan-tennert</groupId>
+      <artifactId>Java-SlashCommands</artifactId>
+      <version>1.0</version>
 </dependency>
 ```
 # Demo (Guild Commands)
