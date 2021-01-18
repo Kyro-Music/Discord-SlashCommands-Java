@@ -39,6 +39,11 @@ dependencies {
 
 - latest Discord.JDA version
 
+# ToDo
+
+- Global slash commands
+- throw an error if the discord api throws an error
+
 # Demo (Guild Commands)
 
 ```java
