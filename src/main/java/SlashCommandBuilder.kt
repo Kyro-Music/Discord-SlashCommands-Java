@@ -1,5 +1,4 @@
 import net.dv8tion.jda.api.JDA
-import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.RawGatewayEvent
@@ -21,6 +20,10 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
 
     fun getGuildCommandsFor(guild: Guild) : SlashCommandGuild {
         return SlashCommandGuild(this, guild.id, botID, token)
+    }
+
+    fun getGlobalCommands() : GlobalSlashCommands {
+        return GlobalSlashCommands(this, botID, token)
     }
 
     fun addListener(listener: SlashCommandListener) {
