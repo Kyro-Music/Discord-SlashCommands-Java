@@ -20,7 +20,7 @@
 	  <artifactId>Java-SlashCommands</artifactId>
 	  <version>1.0</version>
 </dependency>
-
+```
 # Demo (Guild Commands)
 
 ```java
