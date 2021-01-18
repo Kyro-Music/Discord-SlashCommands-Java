@@ -65,7 +65,7 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         }
     }
 
-    fun editGuildCommand(id: String, newGuildCommand: SlashCommand) {
+    fun editCommand(id: String, newGuildCommand: SlashCommand) {
         val request = Request.Builder()
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
