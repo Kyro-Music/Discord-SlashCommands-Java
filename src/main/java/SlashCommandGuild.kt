@@ -59,7 +59,8 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
         }
         commandObject.put("options", commandOptions)
         request.post(RequestBody.Companion.create(JSON, commandObject.toString()))
-        okhttp.newCall(request.build()).execute()
+        val execute = okhttp.newCall(request.build()).execute()
+        println(execute.body?.string())
     }
 
     fun registerGuildCommands(vararg commands: SlashCommand) {
