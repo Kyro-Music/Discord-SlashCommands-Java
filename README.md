@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:Tag'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.0'
 }
 ```
 # Requirements
