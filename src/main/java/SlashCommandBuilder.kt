@@ -7,16 +7,16 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.json.JSONException
 import org.json.JSONObject
 
-class SlashCommandBuilder(val jda: JDA, private val botID: Long, private val token: String) {
+class SlashCommandBuilder(val jda: JDA, private val botID: String, private val token: String) {
 
     val listeners = ArrayList<SlashCommandListener>()
 
-    fun getGuildCommandsFor(id: Long) : SlashCommandGuild {
+    fun getGuildCommandsFor(id: String) : SlashCommandGuild {
         return SlashCommandGuild(id, botID, token)
     }
 
     fun getGuildCommandsFor(guild: Guild) : SlashCommandGuild {
-        return SlashCommandGuild(guild.idLong, botID, token)
+        return SlashCommandGuild(guild.id, botID, token)
     }
 
     fun addListener(listener: SlashCommandListener) {
@@ -42,13 +42,13 @@ class SlashCommandBuilder(val jda: JDA, private val botID: Long, private val tok
                         member = m
                     }
                     val channel = guild.getTextChannelById(data.getLong("channel_id"))
-                    val command = builder.getGuildCommandsFor(guild.idLong).getGuildCommand(data.getJSONObject("data").getString("id").toLong())
+                    val command = builder.getGuildCommandsFor(guild.id).getGuildCommand(data.getJSONObject("data").getString("id").toLong())
                     val args = ArrayList<SlashCommandArgument>()
                     try {
                         val options = data.getJSONObject("data").getJSONArray("options")
                         for (option in options) {
                             val op = option as JSONObject
-                            args.add(SlashCommandArgument(op.getString("name"), op.getString("value")))
+                            args.add(SlashCommandArgument(op.getString("name"), op.get("value")))
                         }
                     } catch(ex: JSONException) {
 

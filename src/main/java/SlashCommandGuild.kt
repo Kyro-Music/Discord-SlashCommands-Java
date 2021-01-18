@@ -5,7 +5,7 @@ import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 
-class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
+class SlashCommandGuild(guild_id: String, bot: String, private val token: String) {
 
     private val okhttp = OkHttpClient()
     private val url = "https://discord.com/api/v8/applications/$bot/guilds/$guild_id/commands"
@@ -30,6 +30,7 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
             }
             return commands
         }
+
 
     fun registerGuildCommand(command: SlashCommand) : String? {
         val request = Request.Builder()
