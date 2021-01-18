@@ -1,4 +1,4 @@
-# Java-SlashCommands
+# Java-SlashCommands [Jitpack.io](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.2)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
