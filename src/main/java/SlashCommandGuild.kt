@@ -31,7 +31,7 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
             return commands
         }
 
-    fun registerGuildCommand(command: SlashCommand) {
+    fun registerGuildCommand(command: SlashCommand) : String? {
         val request = Request.Builder()
                 .addHeader("Authorization", "Bot $token")
                 .url(url)
@@ -61,7 +61,10 @@ class SlashCommandGuild(guild_id: Long, bot: Long, private val token: String) {
         }
         commandObject.put("options", commandOptions)
         request.post(RequestBody.Companion.create(JSON, commandObject.toString()))
-        okhttp.newCall(request.build()).execute().close()
+        val result = okhttp.newCall(request.build()).execute()
+        val string = result.body?.string()
+        result.close()
+        return string
     }
 
     fun registerGuildCommands(vararg commands: SlashCommand) {
