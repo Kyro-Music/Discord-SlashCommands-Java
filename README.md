@@ -1,6 +1,6 @@
 # Java-SlashCommands
 
-# ! You need to enable Raw Events on you JDABuilder or the listeners won't work !
+# ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
 # Installation
 
