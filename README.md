@@ -43,6 +43,7 @@ dependencies {
 
 - Global slash commands
 - throw an error if the discord api throws an error
+- you can update a command with guild.registerGuildCommand but maybe I'll add another function just for editing
 
 # Demo (Guild Commands)
 
