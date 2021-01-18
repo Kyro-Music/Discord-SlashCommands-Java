@@ -1,4 +1,5 @@
 import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.RawGatewayEvent
@@ -6,7 +7,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.json.JSONException
 import org.json.JSONObject
 
-class SlashCommandBuilder(private val jda: JDA, private val botID: Long, private val token: String) {
+class SlashCommandBuilder(val jda: JDA, private val botID: Long, private val token: String) {
 
     val listeners = ArrayList<SlashCommandListener>()
 
@@ -33,10 +34,8 @@ class SlashCommandBuilder(private val jda: JDA, private val botID: Long, private
     private class Listener(private val builder: SlashCommandBuilder) : ListenerAdapter() {
         override fun onRawGateway(event: RawGatewayEvent) {
             if(event.type == "INTERACTION_CREATE") {
-                println("test")
                 val data = JSONObject(event.`package`.toString()).getJSONObject("d")
                 for (listener in builder.listeners) {
-                    println("a")
                     val guild = builder.jda.getGuildById(data.getLong("guild_id")) ?: continue
                     var member: Member? = null
                     guild.retrieveMemberById(data.getJSONObject("member").getJSONObject("user").getLong("id")).queue() {m ->
