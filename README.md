@@ -22,6 +22,19 @@
 </dependency>
 ```
 
+#### Gradle
+```xml
+allprojects {
+	repositories {
+	  maven { url 'https://jitpack.io' }
+    }
+}
+```
+```xml
+dependencies {
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:Tag'
+}
+```
 # Requirements
 
 - latest Discord.JDA version
