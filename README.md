@@ -1,6 +1,6 @@
 # Java-SlashCommands
 
-# ! You need to enable Raw Events on you JDABuilder or the listeners won't work !
+# ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
 # Installation
 
@@ -38,6 +38,12 @@ dependencies {
 # Requirements
 
 - latest Discord.JDA version
+
+# ToDo
+
+- Global slash commands
+- throw an error if the discord api throws an error
+- you can update a command with guild.registerGuildCommand but maybe I'll add another function just for editing
 
 # Demo (Guild Commands)
 
