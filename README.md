@@ -64,7 +64,7 @@ guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This i
 #### Now we can create a listener for the slash commands:
 
 ```java
-import de.Jan.SlashCommands.SlashCommand;import de.Jan.SlashCommands.SlashCommandArgument;import de.Jan.SlashCommands.SlashCommandListener;public static class Listener extends SlashCommandListener {
+public static class Listener extends SlashCommandListener {
         @Override
         public void run(@NotNull Member sender, @NotNull TextChannel channel, @NotNull SlashCommand command, @NotNull ArrayList<SlashCommandArgument> args) {
             if(command.getName().equals("test")) { //check if the slash command is our "test"
