@@ -30,11 +30,13 @@ class SlashCommandBuilder(private val jda: JDA, private val botID: Long, private
         jda.addEventListener(Listener(this))
     }
 
-    class Listener(val builder: SlashCommandBuilder) : ListenerAdapter() {
+    private class Listener(private val builder: SlashCommandBuilder) : ListenerAdapter() {
         override fun onRawGateway(event: RawGatewayEvent) {
             if(event.type == "INTERACTION_CREATE") {
+                println("test")
                 val data = JSONObject(event.`package`.toString()).getJSONObject("d")
                 for (listener in builder.listeners) {
+                    println("a")
                     val guild = builder.jda.getGuildById(data.getLong("guild_id")) ?: continue
                     var member: Member? = null
                     guild.retrieveMemberById(data.getJSONObject("member").getJSONObject("user").getLong("id")).queue() {m ->
