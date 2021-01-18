@@ -103,7 +103,7 @@ Global commands are the same but you get the object with
 SlashCommandBuilder builder = new SlashCommandBuilder(jda, botID, token)
 builder.getGlobalCommands()
 ```
-And they work the same as guild commands but without out the guild in the functions:
+And they work the same as guild commands but without the guild in the functions:
 
 ```java
 builder.getGlobalCommands().registerCommand()
