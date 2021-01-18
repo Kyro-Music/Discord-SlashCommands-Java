@@ -23,14 +23,14 @@
 ```
 
 #### Gradle
-```xml
+```gradle
 allprojects {
 	repositories {
 	  maven { url 'https://jitpack.io' }
     }
 }
 ```
-```xml
+```gradle
 dependencies {
 	 implementation 'com.github.jan-tennert:Java-SlashCommands:Tag'
 }
