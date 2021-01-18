@@ -12,7 +12,7 @@ SlashCommandBuilder builder = new SlashCommandBuilder(jda, 123456789, "token");
 SlashCommandGuild guild = builder.getGuildCommandsFor(123456789);//Get guild commands with ID
 guild.registerGuildCommand(new SlashCommand("test", "This is a test command!")); //Register a slash command
 
-//To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommands(command.id). 
+//To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
 ```       
 
 
