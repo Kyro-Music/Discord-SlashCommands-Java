@@ -2,6 +2,25 @@
 
 # ! You need to enable Raw Events on you JDABuilder or the listeners won't work !
 
+# Installation
+
+#### Maven
+
+```xml
+<repositories>
+	<repository>
+		   <id>jitpack.io</id>
+		   <url>https://jitpack.io</url>
+	</repository>
+</repositories
+```
+```xml
+<dependency>
+	  <groupId>com.github.jan-tennert</groupId>
+	  <artifactId>Java-SlashCommands</artifactId>
+	  <version>1.0</version>
+</dependency>
+
 # Demo (Guild Commands)
 
 ```java
