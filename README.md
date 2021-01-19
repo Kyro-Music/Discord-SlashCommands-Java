@@ -37,7 +37,7 @@ dependencies {
 ```
 # Requirements
 
-- latest Discord.JDA version
+- latest [Discord.JDA](https://github.com/DV8FromTheWorld/JDA) version
 
 # ToDo
 
