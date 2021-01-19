@@ -123,7 +123,7 @@ channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue()
 
 Global commands are the same but you get the object with
 ```java
-SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, botID, token)
+SlashCommandBuilder builder = new SlashCommandBuilder(jda, botID, token)
 builder.getGlobalCommands()
 ```
 And they work the same as guild commands but without the guild in the functions:
