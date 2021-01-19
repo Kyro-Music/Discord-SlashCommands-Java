@@ -63,7 +63,7 @@ SlashCommand command = new SlashCommand.Builder()
 //Or just the constructor:
 SlashCommand command = new SlashCommand("test", "This is a command")
 
-guild.registerCommand(command)
+guild.registerGuildCommand(command)
 //To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
 ```       
 
