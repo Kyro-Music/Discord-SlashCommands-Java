@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Java-SlashCommands</artifactId>
-      <version>1.3</version>
+      <version>1.4</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.3'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.4'
 }
 ```
 # Requirements
