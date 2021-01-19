@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.2)
+# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.3)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Java-SlashCommands</artifactId>
-      <version>1.2</version>
+      <version>1.3</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.2'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.3'
 }
 ```
 # Requirements
@@ -41,6 +41,7 @@ dependencies {
 
 # ToDo
 
+- Subcommands & Subcommand groups
 - if you have an idea create an issue [here](https://github.com/jan-tennert/Java-SlashCommands/issues/new/choose)
 
 # Demo (Guild Commands)
@@ -51,8 +52,25 @@ JDA jda = JDABuilder.createDefault("//Token")
                 .build();
 de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
 de.Jan.SlashCommands.SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
-guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This is a test command!")); //Register a slash command
 
+//You can use the builder:
+SlashCommandOption option = new SlashCommandOption.Builder()
+       .setName("argument")
+       .setDescription("Just an argument")
+       .setType(SlashCommandOptionType.STRING)
+       .setRequired(true)
+       .build();
+SlashCommand command = new SlashCommand.Builder()
+       .setName("test")
+       .setDescription("This is a command")
+       .addOption(option)
+       .appendDescription("\nThis is another line")
+       .build();
+
+//Or just the constructor:
+SlashCommand command = new SlashCommand("test", "This is a command", new SlashCommandOption("argument", "Just an argument", true, SlashCommandOptionType.STRING))
+
+guild.registerCommand(command)
 //To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
 ```       
 
