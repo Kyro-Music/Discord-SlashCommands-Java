@@ -50,8 +50,8 @@ dependencies {
 JDA jda = JDABuilder.createDefault("//Token")
                 .setRawEventsEnabled(true) //Without this, slash commands won't work!
                 .build();
-de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
-de.Jan.SlashCommands.SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
+SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
+SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
 
 //You can use the builder:
 SlashCommand command = new SlashCommand.Builder()
@@ -123,7 +123,7 @@ channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue()
 
 Global commands are the same but you get the object with
 ```java
-de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, botID, token)
+SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, botID, token)
 builder.getGlobalCommands()
 ```
 And they work the same as guild commands but without the guild in the functions:
