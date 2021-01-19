@@ -113,4 +113,3 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
     }
 
 }
-
