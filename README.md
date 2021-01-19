@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.2)
+# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.3)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Java-SlashCommands</artifactId>
-      <version>1.2</version>
+      <version>1.3</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.2'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.3'
 }
 ```
 # Requirements
