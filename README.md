@@ -41,6 +41,7 @@ dependencies {
 
 # ToDo
 
+- Subcommands & Subcommand groups
 - if you have an idea create an issue [here](https://github.com/jan-tennert/Java-SlashCommands/issues/new/choose)
 
 # Demo (Guild Commands)
