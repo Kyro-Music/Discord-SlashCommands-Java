@@ -1,4 +1,4 @@
-# Java-SlashCommands
+# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.2)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Java-SlashCommands</artifactId>
-      <version>1.1</version>
+      <version>1.2</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.1'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.2'
 }
 ```
 # Requirements
@@ -64,7 +64,7 @@ guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This i
 #### Now we can create a listener for the slash commands:
 
 ```java
-import de.Jan.SlashCommands.SlashCommand;import de.Jan.SlashCommands.SlashCommandArgument;import de.Jan.SlashCommands.SlashCommandListener;public static class Listener extends SlashCommandListener {
+public static class Listener extends SlashCommandListener {
         @Override
         public void run(@NotNull Member sender, @NotNull TextChannel channel, @NotNull SlashCommand command, @NotNull ArrayList<SlashCommandArgument> args) {
             if(command.getName().equals("test")) { //check if the slash command is our "test"
@@ -108,3 +108,5 @@ And they work the same as guild commands but without the guild in the functions:
 ```java
 builder.getGlobalCommands().registerCommand()
 ```
+
+*Note: Global commands need up to 60min for updating*
