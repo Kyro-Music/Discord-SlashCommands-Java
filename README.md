@@ -54,21 +54,14 @@ de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.Slas
 de.Jan.SlashCommands.SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
 
 //You can use the builder:
-SlashCommandOption option = new SlashCommandOption.Builder()
-       .setName("argument")
-       .setDescription("Just an argument")
-       .setType(SlashCommandOptionType.STRING)
-       .setRequired(true)
-       .build();
 SlashCommand command = new SlashCommand.Builder()
        .setName("test")
        .setDescription("This is a command")
-       .addOption(option)
        .appendDescription("\nThis is another line")
        .build();
 
 //Or just the constructor:
-SlashCommand command = new SlashCommand("test", "This is a command", new SlashCommandOption("argument", "Just an argument", true, SlashCommandOptionType.STRING))
+SlashCommand command = new SlashCommand("test", "This is a command")
 
 guild.registerCommand(command)
 //To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
@@ -105,8 +98,20 @@ builder.build(); //Build the builder so the listeners are ready
 #### You can also add arguments to your command:
 
 ```java
- guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This is a test command!",
-                new de.Jan.SlashCommands.SlashCommandOption("number", "Enter a number", true, SlashCommandOptionType.INTEGER))); //Register a slash command.
+SlashCommandOption option = new SlashCommandOption.Builder()
+       .setName("argument")
+       .setDescription("Just an argument")
+       .setType(SlashCommandOptionType.STRING)
+       .setRequired(true)
+       .build();
+SlashCommand command = new SlashCommand.Builder()
+       .setName("test")
+       .setDescription("This is a command")
+       .addOption(option)
+       .appendDescription("\nThis is another line")
+       .build();
+
+ guild.registerGuildCommand(command); //Register a slash command.
 
 //Then in your listener:
 channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue();
