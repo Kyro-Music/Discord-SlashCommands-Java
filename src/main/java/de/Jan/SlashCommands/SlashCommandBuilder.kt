@@ -101,12 +101,15 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
     }
 
     fun checkIfError(string: String) {
-        val ob = JSONObject(string)
         try {
-            ob.getInt("code")
-            throw SlashCommandError(string)
+            val ob = JSONObject(string)
+            if(ob.has("code")) {
+                throw SlashCommandError(string)
+            }
         } catch(e: JSONException) {
+
         }
+
     }
 
 }

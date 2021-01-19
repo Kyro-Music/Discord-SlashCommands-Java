@@ -21,9 +21,9 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
                     .get()
                     .build()
             val result = okhttp.newCall(builder).execute()
-            this.builder.checkIfError(result.body!!.string())
-            result.close()
-            val array = JSONArray(result.body?.string())
+            val string = result.body!!.string()
+            this.builder.checkIfError(string)
+            val array = JSONArray(string)
             result.close()
             for (any in array) {
                 val json = any as JSONObject
@@ -41,7 +41,8 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
                 .url(url)
                 .post(builder.slashCommandToForm(command))
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 
@@ -57,7 +58,8 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
                 .addHeader("Authorization", "Bot $token")
                 .delete()
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 
@@ -73,7 +75,8 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
                 .addHeader("Authorization", "Bot $token")
                 .patch(builder.slashCommandToForm(newGuildCommand))
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 

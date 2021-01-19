@@ -21,15 +21,16 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
                     .get()
                     .build()
             val result = okhttp.newCall(builder).execute()
-            val array = JSONArray(result.body?.string())
-            this.builder.checkIfError(result.body!!.string())
-            result.close()
+            val string = result.body!!.string()
+            val array = JSONArray(string)
+            this.builder.checkIfError(string)
             for (any in array) {
                 val json = any as JSONObject
                 val command = SlashCommand(json.getString("name"), json.getString("description"))
                 command.id = json.getLong("id").toString()
                 commands.add(command)
             }
+            result.close()
             return commands
         }
 
@@ -41,7 +42,8 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
                 .post(builder.slashCommandToForm(command))
 
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 
@@ -57,7 +59,8 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
                 .addHeader("Authorization", "Bot $token")
                 .delete()
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 
@@ -73,7 +76,8 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
                 .addHeader("Authorization", "Bot $token")
                 .patch(builder.slashCommandToForm(newGuildCommand))
         val result = okhttp.newCall(request.build()).execute()
-        builder.checkIfError(result.body!!.string())
+        val string = result.body!!.string()
+        builder.checkIfError(string)
         result.close()
     }
 
