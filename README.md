@@ -52,8 +52,25 @@ JDA jda = JDABuilder.createDefault("//Token")
                 .build();
 de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
 de.Jan.SlashCommands.SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
-guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This is a test command!")); //Register a slash command
 
+//You can use the builder:
+SlashCommandOption option = new SlashCommandOption.Builder()
+       .setName("argument")
+       .setDescription("Just an argument")
+       .setType(SlashCommandOptionType.STRING)
+       .setRequired(true)
+       .build();
+SlashCommand command = new SlashCommand.Builder()
+       .setName("test")
+       .setDescription("This is a command")
+       .addOption(option)
+       .appendDescription("\nThis is another line")
+       .build();
+
+//Or just the constructor:
+SlashCommand command = new SlashCommand("test", "This is a command", new SlashCommandOption("argument", "Just an argument", true, SlashCommandOptionType.STRING))
+
+guild.registerCommand(command)
 //To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
 ```       
 
