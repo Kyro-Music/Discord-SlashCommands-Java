@@ -59,7 +59,7 @@ SlashCommand command = new SlashCommand.Builder()
        .appendDescription("\nThis is another line")
        .build();
 
-//Or just the constructor:
+//Or just the constructor (but you should use the builder):
 SlashCommand command = new SlashCommand("test", "This is a command")
 
 guild.registerGuildCommand(command)
@@ -76,7 +76,7 @@ guild.registerGuildCommand(command)
 ```java
 public static class Listener extends SlashCommandListener {
         @Override
-        public void run(@NotNull Member sender, @NotNull TextChannel channel, @NotNull SlashCommand command, @NotNull ArrayList<SlashCommandArgument> args, 		@Nullable SlashSubCommand sub) {
+        public void run(@NotNull Member sender, @NotNull TextChannel channel, @NotNull SlashCommand command, @NotNull ArrayList<SlashCommandArgument> args, @Nullable SlashSubCommand sub) {
             if(command.getName().equals("test")) { //check if the slash command is our "test"
                 channel.sendMessage("You entered the slash command: test").queue(); //Then just send a message
         }
