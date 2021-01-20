@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -53,17 +54,34 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
                     val channel = guild.getTextChannelById(data.getLong("channel_id"))
                     val command = builder.getGuildCommandsFor(guild.id).getGuildCommand(data.getJSONObject("data").getString("id").toLong().toString())
                     val args = ArrayList<SlashCommandArgument>()
+                    var subcommand: SlashSubCommand? = null
                     try {
                         val options = data.getJSONObject("data").getJSONArray("options")
                         for (option in options) {
                             val op = option as JSONObject
-                            args.add(SlashCommandArgument(op.getString("name"), op.get("value")))
+                            if(op.has("value")) { //check if the option is not a subcommand or subcommand group
+                                args.add(SlashCommandArgument(op.getString("name"), op.get("value")))
+                            } else { //the option is a subcommand or subcommand group
+                                for (sub in op.getJSONArray("options")) {
+                                    val s = sub as JSONObject
+                                    if(s.has("value")) { //check if option is a subcommand
+                                        subcommand = SlashSubCommand(op.getString("name"), null)
+                                        args.add(SlashCommandArgument(s.getString("name"), s.get("value"))) //add the arguments of the command
+                                    } else { //the option must be a subcommand group
+                                        for (any in s.getJSONArray("options")) { //iterate through the arguments of the command in the command group
+                                            val g = any as JSONObject
+                                            args.add(SlashCommandArgument(g.getString("name"), g.get("value")))
+                                        }
+                                        subcommand = SlashSubCommand(s.getString("name"), op.getString("name"))
+                                    }
+                                }
+                            }
                         }
                     } catch(ex: JSONException) {
 
                     }
                     if(member != null && channel != null && command != null) {
-                        listener.run(member!!, channel, command, args)
+                        listener.run(member!!, channel, command, args, subcommand)
                     }
                 }
             }
@@ -83,17 +101,73 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
             option.put("name", command_option.name)
             option.put("description", command_option.description)
             option.put("type", command_option.type)
-            option.put("required", command_option.required)
-
-            val choices = JSONArray()
-
-            for (choice in command_option.choices) {
-                val new_choice = JSONObject()
-                new_choice.put("name", choice.name)
-                new_choice.put("value", choice.value)
-                choices.put(new_choice)
+            if(command_option.type != 1 && command_option.type != 2) {
+                option.put("required", command_option.required)
             }
-            option.put("choices", choices)
+
+            if(!command_option.hasSubOptions && command_option.choices.size != 0) { //check if it's just a command
+                val choices = JSONArray()
+
+                for (choice in command_option.choices) {
+                    val new_choice = JSONObject()
+                    new_choice.put("name", choice.name)
+                    new_choice.put("value", choice.value)
+                    choices.put(new_choice)
+                }
+                option.put("choices", choices)
+            } else if(command_option.type == 1) { //check if its a subcommand
+                val suboptions = JSONArray() //the options from the command
+                for (s in command_option.suboptions) { //iterate through the options of the subcommand
+                    val n = JSONObject()
+                    n.put("name", s.name)
+                    n.put("description", s.description)
+                    n.put("type", s.type)
+
+                    if(!s.hasSubOptions && s.choices.size != 0) { //check if the option has choices
+                        val subChoices = JSONArray()
+
+                        for (choice in command_option.choices) {
+                            val newChoice = JSONObject()
+                            newChoice.put("name", choice.name)
+                            newChoice.put("value", choice.value)
+                            subChoices.put(newChoice)
+                        }
+                        n.put("choices", subChoices)
+                    }
+                    suboptions.put(n)
+                }
+                option.put("options", suboptions)
+            } else if(command_option.type == 2) { //check if its a subcommand group
+                val subcmds = JSONArray()
+                for (subcommand in command_option.suboptions) { //iterate through the subcommands of the subcommand group
+                    //create a new command object
+                    val cmd = JSONObject()
+                    cmd.put("name", subcommand.name)
+                    cmd.put("description", subcommand.description)
+                    cmd.put("type", subcommand.type)
+                    val subargs = JSONArray() //the options of the subcommand
+                    for (arg in subcommand.suboptions) { //iterate through the options of the subcommand
+                        //add the option
+                        val argument = JSONObject()
+                        argument.put("name", arg.name)
+                        argument.put("description", arg.required)
+                        argument.put("type", arg.type)
+                        argument.put("required", arg.required)
+                        val choices = JSONArray()
+                        for (choice in arg.choices) { //check if the option has choices
+                            val new_choice = JSONObject()
+                            new_choice.put("name", choice.name)
+                            new_choice.put("value", choice.value)
+                            choices.put(new_choice)
+                        }
+                        argument.put("choices", choices)
+                        subargs.put(argument)
+                    }
+                    cmd.put("options", subargs)
+                    subcmds.put(cmd)
+                }
+                option.put("options", subcmds)
+            }
             commandOptions.put(option)
         }
         commandObject.put("options", commandOptions)
