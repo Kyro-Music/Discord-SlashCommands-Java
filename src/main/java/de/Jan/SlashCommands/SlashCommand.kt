@@ -1,9 +1,27 @@
 package de.Jan.SlashCommands
 
-open class SlashCommand(val name: String, val description: String, vararg command_options: SlashCommandOption) {
+open class SlashCommand {
 
-    val options = command_options
+    var options: Array<SlashCommandOption>
+        private set
     var id: String = ""
+    var name: String
+        private set
+    var description: String
+        private set
+
+    constructor(name: String, description: String, vararg command_options: SlashCommandOption) {
+        this.name = name
+        this.description = description
+        this.options = command_options.toList().toTypedArray()
+    }
+
+    constructor(command: SlashCommand) {
+        this.options = command.options.toList().toTypedArray()
+        this.name = command.name
+        this.description = command.description
+        this.id = command.id
+    }
 
     class Builder {
 
