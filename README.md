@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.3)
+# Java-SlashCommands [![1.2](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.4)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Java-SlashCommands</artifactId>
-      <version>1.3</version>
+      <version>1.4</version>
 </dependency>
 ```
 
@@ -32,12 +32,12 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.3'
+	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.4'
 }
 ```
 # Requirements
 
-- latest Discord.JDA version
+- latest [Discord.JDA](https://github.com/DV8FromTheWorld/JDA) version
 
 # ToDo
 
@@ -50,27 +50,20 @@ dependencies {
 JDA jda = JDABuilder.createDefault("//Token")
                 .setRawEventsEnabled(true) //Without this, slash commands won't work!
                 .build();
-de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
-de.Jan.SlashCommands.SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
+SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
+SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
 
 //You can use the builder:
-SlashCommandOption option = new SlashCommandOption.Builder()
-       .setName("argument")
-       .setDescription("Just an argument")
-       .setType(SlashCommandOptionType.STRING)
-       .setRequired(true)
-       .build();
 SlashCommand command = new SlashCommand.Builder()
        .setName("test")
        .setDescription("This is a command")
-       .addOption(option)
        .appendDescription("\nThis is another line")
        .build();
 
 //Or just the constructor:
-SlashCommand command = new SlashCommand("test", "This is a command", new SlashCommandOption("argument", "Just an argument", true, SlashCommandOptionType.STRING))
+SlashCommand command = new SlashCommand("test", "This is a command")
 
-guild.registerCommand(command)
+guild.registerGuildCommand(command)
 //To delete a command you have to iterate through guild.commands and find your command. Then just run guild.deleteGuildCommand(command.id). 
 ```       
 
@@ -105,8 +98,20 @@ builder.build(); //Build the builder so the listeners are ready
 #### You can also add arguments to your command:
 
 ```java
- guild.registerGuildCommand(new de.Jan.SlashCommands.SlashCommand("test", "This is a test command!",
-                new de.Jan.SlashCommands.SlashCommandOption("number", "Enter a number", true, SlashCommandOptionType.INTEGER))); //Register a slash command.
+SlashCommandOption option = new SlashCommandOption.Builder()
+       .setName("argument")
+       .setDescription("Just an argument")
+       .setType(SlashCommandOptionType.STRING)
+       .setRequired(true)
+       .build();
+SlashCommand command = new SlashCommand.Builder()
+       .setName("test")
+       .setDescription("This is a command")
+       .addOption(option)
+       .appendDescription("\nThis is another line")
+       .build();
+
+ guild.registerGuildCommand(command); //Register a slash command.
 
 //Then in your listener:
 channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue();
@@ -118,7 +123,7 @@ channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue()
 
 Global commands are the same but you get the object with
 ```java
-de.Jan.SlashCommands.SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, botID, token)
+SlashCommandBuilder builder = new SlashCommandBuilder(jda, botID, token)
 builder.getGlobalCommands()
 ```
 And they work the same as guild commands but without the guild in the functions:
