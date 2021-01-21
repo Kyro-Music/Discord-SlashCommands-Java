@@ -47,7 +47,7 @@ dependencies {
 
 ```java
 JDA jda = JDABuilder.createDefault("//Token")
-                .setRawEventsEnabled(true) //Without this, slash commands won't work!
+                .setRawEventsEnabled(true) //Without this, listeners won't work
                 .build();
 SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
 SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
