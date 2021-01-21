@@ -62,7 +62,7 @@ class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(UR
 
                 }
                 if (member != null && channel != null && command != null) {
-                    listener.run(SlashCommandEvent(member, channel, command, args, subcommand, Interaction(builder, interactionToken, builder.token, builder.botID, id)))
+                    listener.run(SlashCommandEvent(guild, member, channel, command, args, subcommand, Interaction(builder, interactionToken, builder.token, builder.botID, id)))
                 }
             }
         }
