@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.5](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.5)
+# Java-SlashCommands [![1.6](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.1)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -17,8 +17,8 @@
 ```xml
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
-      <artifactId>Java-SlashCommands</artifactId>
-      <version>1.5</version>
+      <artifactId>Discord-SlashCommands-Java</artifactId>
+      <version>1.6</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Java-SlashCommands:1.5'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.6'
 }
 ```
 # Requirements
@@ -76,9 +76,9 @@ guild.registerGuildCommand(command)
 ```java
 public static class Listener extends SlashCommandListener {
         @Override
-        public void run(@NotNull Member sender, @NotNull TextChannel channel, @NotNull SlashCommand command, @NotNull ArrayList<SlashCommandArgument> args, @Nullable SlashSubCommand sub) {
-            if(command.getName().equals("test")) { //check if the slash command is our "test"
-                channel.sendMessage("You entered the slash command: test").queue(); //Then just send a message
+        public void run(SlashCommandEvent e) {
+            if(e.getCommand().getName().equals("test")) { //check if the slash command is our "test"
+                e.getChannel().sendMessage("You entered the slash command: test").queue(); //Then just send a message
         }
     }
 }
@@ -113,12 +113,26 @@ SlashCommand command = new SlashCommand.Builder()
  guild.registerGuildCommand(command); //Register a slash command.
 
 //Then in your listener:
-channel.sendMessage("You entered the number: " + args.get(0).getValue()).queue();
+e.getChannel().sendMessage("You entered the number: " + e.getArgs().get(0).getValue()).queue();
 ```
 
 ![Command with arguments](https://cdn.discordapp.com/attachments/775406836877885504/800706541971046400/unknown.png)
 
-### Subcommands & Subcommand grups
+## Interaction response
+If the listener has received an interaction, you can response to him:
+```java
+public static class Listener extends SlashCommandListener {
+        @Override
+        public void run(SlashCommandEvent e) {
+        e.callback(type, value);
+    }
+}
+```
+Type is the [response type](https://github.com/jan-tennert/Java-SlashCommands/blob/master/src/main/java/de/Jan/SlashCommands/InteractionType.java).
+
+Value is the value. If you selected a type where you send a message, then you can enter a string
+
+## Subcommands & Subcommand grups
 
 ```java
 SlashCommandOption option = new SlashCommandOption.Builder()
@@ -138,7 +152,7 @@ If you want to use a subcommand group, select the type SUB_COMMAND_GROUP and add
 In the listeners there's this new argument: SlashSubCommand (which is null when there is no subcommand)
 .You can get the subcommand name with SlashSubCommand.getName() and the group (if there is one) SlashSubCommand.getGroup()
 
-#### Global commands
+## Global commands
 
 Global commands are the same but you get the object with
 ```java
