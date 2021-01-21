@@ -1,7 +1,5 @@
 package de.Jan.SlashCommands
 
-import net.dv8tion.jda.api.entities.Member
-import net.dv8tion.jda.api.entities.TextChannel
 
 /**
  * @param sender The member who sent the slash command
@@ -10,5 +8,5 @@ import net.dv8tion.jda.api.entities.TextChannel
  * @param args The arguments which were used
  * @param sub The sub command, if the sender used one
  */
-class SlashCommandEvent(val sender: Member, val channel: TextChannel, val command: SlashCommand, val args: ArrayList<SlashCommandArgument>, val subCommand: SlashSubCommand?, val interaction: Interaction) {
+class SlashCommandEvent(val memberID: String, val channelID: String, val command: SlashCommand, val args: ArrayList<SlashCommandArgument>, val subCommand: SlashSubCommand?, val interaction: Interaction) {
 }
