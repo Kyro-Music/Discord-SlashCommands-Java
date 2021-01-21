@@ -15,15 +15,15 @@ public class InteractionType {
     /**
      * Respond with a message and don't send the user input in the channel
      */
-    public final static int channelmessage = 3;
+    public final static int channelMessage = 3;
 
     /**
      * Respond with a message and send the user input in the channel
      */
-    public final static int channelmessagewithsource = 4;
+    public final static int channelMessageWithSource = 4;
 
     /**
      * Tell the api you received the interaction and send the user input in the channel
      */
-    public final static int acknowledgewithsource = 5;
+    public final static int acknowledgeWithSource = 5;
 }
