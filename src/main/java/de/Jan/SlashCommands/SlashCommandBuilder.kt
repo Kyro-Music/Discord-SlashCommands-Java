@@ -47,7 +47,6 @@ class SlashCommandBuilder(val jda: JDA, val botID: String, val token: String) {
         override fun onRawGateway(event: RawGatewayEvent) {
             if(event.type == "INTERACTION_CREATE") {
                 val data = JSONObject(event.`package`.toString()).getJSONObject("d")
-                println(data)
                 for (listener in builder.listeners) {
                     val guild = builder.jda.getGuildById(data.getLong("guild_id")) ?: continue
                     var member: Member? = null

@@ -15,7 +15,6 @@ class Interaction(private val interactionToken: String, private  val token: Stri
 
 
     fun callback(type: Int, value: String? = null) {
-        println(url)
         val i = JSONObject()
         i.put("type", type)
         if(value != null) {
