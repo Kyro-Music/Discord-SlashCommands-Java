@@ -1,6 +1,5 @@
 package de.Jan.SlashCommands
 
-import net.dv8tion.jda.api.entities.Member
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import org.json.JSONException
@@ -13,11 +12,11 @@ class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(UR
         val identify = JSONObject("{\n" +
                 "  \"op\": 2,\n" +
                 "  \"d\": {\n" +
-                "    \"token\": \"ODAwODIyMjg0ODg1NTU3MjQ5.YAXt3w.s281-uyKNhzoyRWsfZ2Vlzmns9g\",\n" +
+                "    \"token\": \"${builder.token}\",\n" +
                 "    \"intents\": 513,\n" +
                 "    \"properties\": {\n" +
                 "      \"\$os\": \"linux\",\n" +
-                "      \"\$browser\": \"SlashCommand-Java\",\n" +
+                "      \"\$browser\": \"SlashCommands-Java\",\n" +
                 "      \"\$device\": \"SlashCommand-Java\"\n" +
                 "    }\n" +
                 "  }\n" +
@@ -31,7 +30,7 @@ class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(UR
             for (listener in builder.listeners) {
                 val guild = data.getString("guild_id")
                 val channel = data.getString("channel_id")
-                val command = builder.getGuildCommandsFor(guild.toString()).getGuildCommand(data.getJSONObject("data").getString("id").toLong().toString())
+                val command = builder.getGuildCommandsFor(guild).getGuildCommand(data.getJSONObject("data").getString("id").toLong().toString())
                 val args = ArrayList<SlashCommandArgument>()
                 var subcommand: SlashSubCommand? = null
                 val interactionToken = data.getString("token")

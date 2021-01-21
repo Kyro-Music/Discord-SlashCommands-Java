@@ -1,6 +1,5 @@
 package de.Jan.SlashCommands
 
-import net.dv8tion.jda.api.entities.Guild
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -14,10 +13,6 @@ class SlashCommandBuilder(val botID: String, val token: String) {
 
     fun getGuildCommandsFor(id: String) : SlashCommandGuild {
         return SlashCommandGuild(this, id, botID, token)
-    }
-
-    fun getGuildCommandsFor(guild: Guild) : SlashCommandGuild {
-        return SlashCommandGuild(this, guild.id, botID, token)
     }
 
     fun getGlobalCommands() : GlobalSlashCommands {
