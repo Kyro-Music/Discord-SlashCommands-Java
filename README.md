@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.7](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.7)
+# Java-SlashCommands
 
 # Installation
 
@@ -16,7 +16,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.0.0-release</version>
+      <version>1.0.1-release</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.0.0-release'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.0.1-release'
 }
 ```
 
