@@ -16,7 +16,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.7</version>
+      <version>1.0.0-release</version>
 </dependency>
 ```
 
@@ -30,12 +30,9 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.7'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.0.0-release'
 }
 ```
-# Requirements
-
-- latest [Discord.JDA](https://github.com/DV8FromTheWorld/JDA) version
 
 # ToDo
 
@@ -44,10 +41,7 @@ dependencies {
 # Demo (Guild Commands)
 
 ```java
-JDA jda = JDABuilder.createDefault("//Token")
-                .setRawEventsEnabled(true) //Without this, listeners won't work
-                .build();
-SlashCommandBuilder builder = new de.Jan.SlashCommands.SlashCommandBuilder(jda, "123456789", "token");
+SlashCommandBuilder builder = new SlashCommands.SlashCommandBuilder("123456789", "token");
 SlashCommandGuild guild = builder.getGuildCommandsFor("123456789");//Get guild commands with ID
 
 //You can use the builder:
@@ -76,7 +70,7 @@ public static class Listener extends SlashCommandListener {
         @Override
         public void run(SlashCommandEvent e) {
             if(e.getCommand().getName().equals("test")) { //check if the slash command is our "test"
-                e.getChannel().sendMessage("You entered the slash command: test").queue(); //Then just send a message
+                e.getInteraction().sendMessage("You entered the slash command: test").queue(); //Then just send a message
         }
     }
 }
@@ -154,7 +148,7 @@ In the listeners there's this new argument: SlashSubCommand (which is null when 
 
 Global commands are the same but you get the object with
 ```java
-SlashCommandBuilder builder = new SlashCommandBuilder(jda, botID, token)
+SlashCommandBuilder builder = new SlashCommandBuilder(botID, token)
 builder.getGlobalCommands()
 ```
 And they work the same as guild commands but without the guild in the functions:
