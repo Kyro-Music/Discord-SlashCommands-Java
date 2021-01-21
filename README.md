@@ -70,7 +70,7 @@ public static class Listener extends SlashCommandListener {
         @Override
         public void run(SlashCommandEvent e) {
             if(e.getCommand().getName().equals("test")) { //check if the slash command is our "test"
-                e.getInteraction().sendMessage("You entered the slash command: test").queue(); //Then just send a message
+                e.getInteraction().sendMessage("You entered the slash command: test"); //Then just send a message
         }
     }
 }
@@ -82,7 +82,7 @@ public static class Listener extends SlashCommandListener {
 
 ```java
 builder.addListener(new Listener()); //Add the listener
-builder.build(); //Build the builder so the listeners are ready
+builder.build(); //Build the builder and start the websocket
 ```
 
 
@@ -105,7 +105,7 @@ SlashCommand command = new SlashCommand.Builder()
  guild.registerGuildCommand(command); //Register a slash command.
 
 //Then in your listener:
-e.getChannel().sendMessage("You entered the number: " + e.getArgs().get(0).getValue()).queue();
+e.getInteraction().sendMessage("You entered the number: " + e.getArgs().get(0).getValue());
 ```
 
 ![Command with arguments](https://cdn.discordapp.com/attachments/775406836877885504/800706541971046400/unknown.png)
