@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.5](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.5)
+# Java-SlashCommands [![1.6](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.1)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -128,7 +128,8 @@ public static class Listener extends SlashCommandListener {
     }
 }
 ```
-Type is the [response type](https://github.com/jan-tennert/Java-SlashCommands/blob/master/src/main/java/de/Jan/SlashCommands/InteractionType.java)
+Type is the [response type](https://github.com/jan-tennert/Java-SlashCommands/blob/master/src/main/java/de/Jan/SlashCommands/InteractionType.java).
+
 Value is the value. If you selected a type where you send a message, then you can enter a string
 
 ## Subcommands & Subcommand grups
