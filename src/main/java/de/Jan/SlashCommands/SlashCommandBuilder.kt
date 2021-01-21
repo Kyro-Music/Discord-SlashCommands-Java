@@ -85,7 +85,7 @@ class SlashCommandBuilder(val jda: JDA, val botID: String, val token: String) {
 
                     }
                     if(member != null && channel != null && command != null) {
-                        listener.run(SlashCommandEvent(member!!, channel, command, args, subcommand, Interaction(interactionToken, builder.token, builder.botID, id)))
+                        listener.run(SlashCommandEvent(member!!, channel, command, args, subcommand, Interaction(builder, interactionToken, builder.token, builder.botID, id)))
                     }
                 }
             }
