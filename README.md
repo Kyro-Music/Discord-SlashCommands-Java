@@ -1,4 +1,4 @@
-# Java-SlashCommands [![1.6](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.1)
+# Java-SlashCommands [![1.7](https://jitpack.io/v/jan-tennert/Java-SlashCommands.svg)](https://jitpack.io/#jan-tennert/Java-SlashCommands/1.1)
 
 # ! You need to enable Raw Events on your JDABuilder or the listeners won't work !
 
@@ -18,7 +18,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.6</version>
+      <version>1.7</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.6'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.7'
 }
 ```
 # Requirements
