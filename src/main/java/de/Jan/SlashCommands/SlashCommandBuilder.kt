@@ -6,13 +6,15 @@ import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.RawGatewayEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class SlashCommandBuilder(val jda: JDA, private val botID: String, private val token: String) {
+class SlashCommandBuilder(val jda: JDA, val botID: String, val token: String) {
 
     val listeners = ArrayList<SlashCommandListener>()
 
@@ -41,9 +43,11 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
     }
 
     private class Listener(private val builder: SlashCommandBuilder) : ListenerAdapter() {
+
         override fun onRawGateway(event: RawGatewayEvent) {
             if(event.type == "INTERACTION_CREATE") {
                 val data = JSONObject(event.`package`.toString()).getJSONObject("d")
+                println(data)
                 for (listener in builder.listeners) {
                     val guild = builder.jda.getGuildById(data.getLong("guild_id")) ?: continue
                     var member: Member? = null
@@ -54,6 +58,8 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
                     val command = builder.getGuildCommandsFor(guild.id).getGuildCommand(data.getJSONObject("data").getString("id").toLong().toString())
                     val args = ArrayList<SlashCommandArgument>()
                     var subcommand: SlashSubCommand? = null
+                    val interactionToken = data.getString("token")
+                    val id = data.getString("id")
                     try {
                         val options = data.getJSONObject("data").getJSONArray("options")
                         for (option in options) {
@@ -80,7 +86,7 @@ class SlashCommandBuilder(val jda: JDA, private val botID: String, private val t
 
                     }
                     if(member != null && channel != null && command != null) {
-                        listener.run(member!!, channel, command, args, subcommand)
+                        listener.run(SlashCommandEvent(member!!, channel, command, args, subcommand, Interaction(interactionToken, builder.token, builder.botID, id)))
                     }
                 }
             }

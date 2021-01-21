@@ -22,8 +22,8 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
                     .build()
             val result = okhttp.newCall(builder).execute()
             val string = result.body!!.string()
-            val array = JSONArray(string)
             this.builder.checkIfError(string)
+            val array = JSONArray(string)
             for (any in array) {
                 val json = any as JSONObject
                 val command = SlashCommand(json.getString("name"), json.getString("description"))
