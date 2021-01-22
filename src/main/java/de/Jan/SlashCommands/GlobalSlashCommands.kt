@@ -39,7 +39,7 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         val request = Request.Builder()
                 .addHeader("Authorization", "Bot $token")
                 .url(url)
-                .post(builder.slashCommandToForm(command))
+                .post(command.toRequestBody())
         val result = okhttp.newCall(request.build()).execute()
         val string = result.body!!.string()
         builder.checkIfError(string)
@@ -69,11 +69,11 @@ class GlobalSlashCommands(val builder: SlashCommandBuilder, bot: String, private
         }
     }
 
-    fun editCommand(id: String, newGuildCommand: SlashCommand) {
+    fun editCommand(id: String, newSlashCommand: SlashCommand) {
         val request = Request.Builder()
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
-                .patch(builder.slashCommandToForm(newGuildCommand))
+                .patch(newSlashCommand.toRequestBody())
         val result = okhttp.newCall(request.build()).execute()
         val string = result.body!!.string()
         builder.checkIfError(string)

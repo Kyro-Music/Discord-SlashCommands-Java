@@ -36,8 +36,37 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
         val call = client.newCall(r.build()).execute()
         val result = call.body!!.string()
         builder.checkIfError(result)
+        val message = JSONObject(result)
         if(value != null) {
-            return InteractionMessage(value, "", builder, this, true)
+            return InteractionMessage(value, message.getString("id"), builder, this, true)
+        } else {
+            return null
+        }
+    }
+
+    fun callback(type: Int, value: InteractionEmbed? = null) : InteractionMessage? {
+        if(callback) {
+            return null
+        }
+        callback = true
+        val i = JSONObject()
+        i.put("type", type)
+        if(value != null) {
+            val data = JSONObject()
+                    .put("tts", false)
+                    .put("embeds", JSONArray().put(value.toJSONObject()))
+                    .put("allowed_mentions", JSONArray())
+            i.put("data", data)
+        }
+        val r = Request.Builder()
+                .url(callback_url)
+                .addHeader("Authorization", "Bot $token")
+                .post(i.toString().toRequestBody(JSON))
+        val call = client.newCall(r.build()).execute()
+        val result = call.body!!.string()
+        builder.checkIfError(result)
+        if(value != null) {
+            return InteractionMessage("", "", builder, this, true)
         } else {
             return null
         }
@@ -50,6 +79,23 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
                     .put("content", value)
                     .put("embeds", JSONArray())
                     .put("allowed_mentions", JSONArray())
+        val r = Request.Builder()
+                .url(createURL)
+                .addHeader("Authorization", "Bot $token")
+                .post(data.toString().toRequestBody(JSON))
+        val call = client.newCall(r.build()).execute()
+        val result = call.body!!.string()
+        builder.checkIfError(result)
+        val message = JSONObject(result)
+        return InteractionMessage(message.getString("content"), message.getString("id"), builder, this, false)
+    }
+
+    fun sendMessage(value: InteractionEmbed) : InteractionMessage {
+        val createURL = "https://discord.com/api/v8/webhooks/${builder.botID}/$interactionToken"
+        val data = JSONObject()
+                .put("tts", false)
+                .put("embeds", JSONArray().put(value.toJSONObject()))
+                .put("allowed_mentions", JSONArray())
         val r = Request.Builder()
                 .url(createURL)
                 .addHeader("Authorization", "Bot $token")

@@ -39,7 +39,7 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
         val request = Request.Builder()
                 .addHeader("Authorization", "Bot $token")
                 .url(url)
-                .post(builder.slashCommandToForm(command))
+                .post(command.toRequestBody())
 
         val result = okhttp.newCall(request.build()).execute()
         val string = result.body!!.string()
@@ -74,7 +74,7 @@ class SlashCommandGuild(val builder: SlashCommandBuilder, guild_id: String, bot:
         val request = Request.Builder()
                 .url("$url/$id")
                 .addHeader("Authorization", "Bot $token")
-                .patch(builder.slashCommandToForm(newGuildCommand))
+                .patch(newGuildCommand.toRequestBody())
         val result = okhttp.newCall(request.build()).execute()
         val string = result.body!!.string()
         builder.checkIfError(string)
