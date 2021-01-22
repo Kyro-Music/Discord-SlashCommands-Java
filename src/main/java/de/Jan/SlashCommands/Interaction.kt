@@ -14,7 +14,7 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
     private val JSON = "application/json; charset=utf-8".toMediaType()
     private var callback = false
 
-    fun callback(type: Int, value: String? = null) : InteractionMessage? {
+    fun callback(type: Int, value: String) : InteractionMessage? {
         if(callback) {
             return null
         }
@@ -58,7 +58,7 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
     }
 
 
-    fun callback(type: Int, value: InteractionEmbed? = null) : InteractionMessage? {
+    fun callback(type: Int, value: InteractionEmbed) : InteractionMessage? {
         if(callback) {
             return null
         }
