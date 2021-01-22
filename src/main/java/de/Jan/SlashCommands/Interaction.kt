@@ -44,6 +44,20 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
         }
     }
 
+    fun callback(type: Int) {
+        callback = true
+        val i = JSONObject()
+        i.put("type", type)
+        val r = Request.Builder()
+                .url(callback_url)
+                .addHeader("Authorization", "Bot $token")
+                .post(i.toString().toRequestBody(JSON))
+        val call = client.newCall(r.build()).execute()
+        val result = call.body!!.string()
+        builder.checkIfError(result)
+    }
+
+
     fun callback(type: Int, value: InteractionEmbed? = null) : InteractionMessage? {
         if(callback) {
             return null
