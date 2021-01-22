@@ -16,7 +16,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.8.0</version>
+      <version>1.8</version>
 </dependency>
 ```
 
