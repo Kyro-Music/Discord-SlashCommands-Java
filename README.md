@@ -16,7 +16,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.2.1-release</version>
+      <version>1.2.0-release</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.2.1-release'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.2.0-release'
 }
 ```
 
