@@ -16,7 +16,7 @@
 <dependency>
       <groupId>com.github.jan-tennert</groupId>
       <artifactId>Discord-SlashCommands-Java</artifactId>
-      <version>1.0.1-release</version>
+      <version>1.2.0-release</version>
 </dependency>
 ```
 
@@ -30,7 +30,7 @@ allprojects {
 ```
 ```gradle
 dependencies {
-	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.0.1-release'
+	 implementation 'com.github.jan-tennert:Discord-SlashCommands-Java:1.2.0-release'
 }
 ```
 
@@ -70,7 +70,14 @@ public static class Listener extends SlashCommandListener {
         @Override
         public void run(SlashCommandEvent e) {
             if(e.getCommand().getName().equals("test")) { //check if the slash command is our "test"
-                e.getInteraction().sendMessage("You entered the slash command: test"); //Then just send a message
+		 InteractionEmbed.Builder embed = new InteractionEmbed.Builder() //embed
+                        .setAuthor("author")
+                        .setTitle("title")
+                        .addField("field", "value", false)
+                        .setFooter("footer")
+                        .....
+                e.getInteraction().sendMessage(embed.build()); //Send an embed
+		e.getInteraction().sendMessage("message"); // Or just send a message
         }
     }
 }
