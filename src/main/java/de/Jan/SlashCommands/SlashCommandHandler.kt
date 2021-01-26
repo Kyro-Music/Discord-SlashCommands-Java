@@ -20,7 +20,7 @@ class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(UR
             val identify = JSONObject("{\n" +
                     "  \"op\": 2,\n" +
                     "  \"d\": {\n" +
-                    "    \"token\": \"ODAwODIyMjg0ODg1NTU3MjQ5.YAXt3w.0g7YCvbYWN7eIO_NGTFPlNgz3-o\",\n" +
+                    "    \"token\": \"${builder.token}\",\n" +
                     "    \"intents\": 513,\n" +
                     "    \"properties\": {\n" +
                     "      \"\$os\": \"linux\",\n" +
