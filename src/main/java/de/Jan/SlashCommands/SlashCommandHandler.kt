@@ -10,10 +10,8 @@ import java.net.URI
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(URI("wss://gateway.discord.gg/?v=8&encoding=json")) {
+class SlashCommandHandler(val builder: SlashCommandBuilder, private val reconnect: Boolean = false, private var sessionID: String = "") : WebSocketClient(URI("wss://gateway.discord.gg/?v=8&encoding=json")) {
 
-    private var reconnect = false
-    private var sessionID = ""
 
     override fun onOpen(e: ServerHandshake?) {
         if(!reconnect && sessionID == "") {
@@ -43,8 +41,8 @@ class SlashCommandHandler(val builder: SlashCommandBuilder) : WebSocketClient(UR
         }
         Thread { while(true) {
             if(isClosed) {
-                reconnect = true
-                reconnect()
+                SlashCommandHandler(builder, true, sessionID)
+                close()
             }
         } }.start()
     }
