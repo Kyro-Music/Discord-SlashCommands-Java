@@ -44,7 +44,7 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
         }
     }
 
-    private fun callback(type: Int) : Interaction {
+    protected fun callback(type: Int) : Interaction {
         callback = true
         val i = JSONObject()
         i.put("type", type)
@@ -59,7 +59,7 @@ class Interaction(private val builder: SlashCommandBuilder, val interactionToken
     }
 
 
-    private fun callback(type: Int, value: InteractionEmbed) : InteractionMessage? {
+    protected fun callback(type: Int, value: InteractionEmbed) : InteractionMessage? {
         if(callback) {
             return null
         }
