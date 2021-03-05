@@ -48,6 +48,9 @@ class SlashCommandBuilder (val jda: JDA, val botID: String, val token: String) {
         override fun onRawGateway(event: RawGatewayEvent) {
             if(event.type == "INTERACTION_CREATE") {
                 val data = JSONObject(event.`package`.toString()).getJSONObject("d")
+                val interactionToken = data.getString("token")
+                val id = data.getString("id")
+                val interaction = Interaction(builder, interactionToken, builder.token, builder.botID, id).callback(InteractionType.acknowledgeWithSource)
                 for (listener in builder.listeners) {
                     val guild = builder.jda.getGuildById(data.getLong("guild_id")) ?: continue
                     var member: Member? = null
@@ -58,8 +61,6 @@ class SlashCommandBuilder (val jda: JDA, val botID: String, val token: String) {
                     val command = builder.getGuildCommandsFor(guild.id).getGuildCommand(data.getJSONObject("data").getString("id").toLong().toString())
                     val args = ArrayList<SlashCommandArgument>()
                     var subcommand: SlashSubCommand? = null
-                    val interactionToken = data.getString("token")
-                    val id = data.getString("id")
                     try {
                         val options = data.getJSONObject("data").getJSONArray("options")
                         for (option in options) {
@@ -86,7 +87,7 @@ class SlashCommandBuilder (val jda: JDA, val botID: String, val token: String) {
 
                     }
                     if(member != null && channel != null && command != null) {
-                        listener.run(SlashCommandEvent(member!!, channel, command, args, subcommand, Interaction(builder, interactionToken, builder.token, builder.botID, id)))
+                        listener.run(SlashCommandEvent(member!!, channel, command, args, subcommand, interaction))
                     }
                 }
             }
