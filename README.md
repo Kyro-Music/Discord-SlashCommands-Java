@@ -1,4 +1,4 @@
-# Java-SlashCommands
+# Java-SlashCommands (Updated Version)
 
 # Installation
 
